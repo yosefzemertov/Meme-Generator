@@ -6,12 +6,12 @@ var gChooseImg = 'img/2.jpg'
 var gImg
 
 
-function init() {
-    renderCan()
-    // gElCanvas = document.getElementById('my-canvas')
-    // gCtx = gElCanvas.getContext('2d')
-    // drawImgFromlocal();
-}
+// function init() {
+//     renderCan()
+//     // gElCanvas = document.getElementById('my-canvas')
+//     // gCtx = gElCanvas.getContext('2d')
+//     // drawImgFromlocal();
+// }
 
 function renderCan() {
     var el = document.querySelector('.main');
@@ -23,27 +23,40 @@ function renderCan() {
 
 
 function drawImgFromlocal() {
+    var meme = getMeme()
     gImg = new Image()
-    gImg.src = gChooseImg;
+    gImg.src = getImg(meme.selectedImgId);
     gImg.onload = () => {
         gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height) //img,x,y,xend,yend
         drawText()
     }
 }
 
-function drawText(text = 'meme', x = 170, y = 50) {
-    // gCtx.font = '50px serif';
-    // gCtx.fillText(text, x, y);
+function renderImg() {
+    var meme = getMeme()
+    var currMeme = meme.lines[0]
+    gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
+    drawText(currMeme.txt, currMeme.pos.x, currMeme.pos.y)
+}
 
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = 'black';
+
+function drawText(text = 'meme', y = 50) {
+    var txt = gCtx.measureText(text);
+    gCtx.lineWidth = 0.5;
+    gCtx.strokeStyle = 'white';
     gCtx.fillStyle = 'black';
-    gCtx.font = '40px Arial';
+    gCtx.font = '35px Impact';
+    var x = ((gElCanvas.width - txt.width) / 2)
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
 }
 
-function renderImg(img = gImg) {
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
-    drawText('kkjjd')
+function writeLine(el) {
+    updateTxtModal(el.value)
+    renderImg()
+    // console.log(el);
+}
+
+function removeImput(el) {
+    el.value = '';
 }
