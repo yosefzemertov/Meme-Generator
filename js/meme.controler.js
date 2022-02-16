@@ -15,7 +15,12 @@ var gImg
 
 function renderCan() {
     var el = document.querySelector('.main');
-    el.innerHTML = `<canvas id="my-canvas" class="canvas-container" width="450" height="450"></canvas>`
+    
+    el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
+    class="canvas-container" width="500" height="450"></canvas><div class="controler">
+    <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout=" removeImput(this)">
+    <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png"></div></div>
+    `
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
     drawImgFromlocal();

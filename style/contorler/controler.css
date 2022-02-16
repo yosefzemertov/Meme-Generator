@@ -1,0 +1,30 @@
+.main-container {
+    gap: 15px; 
+}
+
+.controler {
+    display: grid;
+    background-color: rgb(19, 19, 19);
+    width: 350px;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr 2fr 1fr;
+    gap: 15px;
+
+    grid-template-areas: 
+    " .      input      input     input   . "
+    " .          .     add-btn   .    . "
+    " .  .  .       .  . "
+    " .   .   .  .        . " 
+    " .      .      .     .    . "
+    " .           .           .       .    . ";
+}
+
+input {
+    grid-area: input;
+}
+
+.add-btn {
+    grid-area: add-btn;
+    background-color: rgb(255, 167, 52);
+}
+

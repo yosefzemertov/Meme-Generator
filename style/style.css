@@ -1,6 +1,13 @@
-
+/* controler */
+@import 'contorler/controler.css';
+/* @import 'controler/canvas.css'; */
 /* galery */
-
 @import 'galery/galery.css';
+
+
+
 /* setup */
+@import 'basic/helper.css';
+@import 'basic/header.css';
+@import 'basic/footer.css';
 @import 'basic/base.css';

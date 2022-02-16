@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="style/style.css">
     <meta charset="UTF-8">
@@ -7,13 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEMEGEN</title>
 </head>
+
 <body onload="init()">
-    <input type="text" name="mems-txt" oninput="writeLine(this)" onclick=" removeImput(this)">
-    <button onclick="renderImg()"></button>
-    <section class="main">
+    <header class="header">
+        <div class="header-container layout flex space align">
+            <img class="logo" src="LOGO/LOGO.png">
+            <nav class="nav"><button onclick="init()">Gallery</button></nav>
+        </div>
+    </header>
+    <section class="main layout">
+        <!-- <div class="controler">
+            <input type="text" name="mems-txt" oninput="writeLine(this)" onclick=" removeImput(this)">
+            <button onclick="renderImg()"></button>
+
+        </div> -->
+ 
     </section>
+    <footer class="footer"></footer>
     <script src="js/meme.services.js"></script>
     <script src="js/galery.controler.js"></script>
     <script src="js/meme.controler.js"></script>
 </body>
+
 </html>
