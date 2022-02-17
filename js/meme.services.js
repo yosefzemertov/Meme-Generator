@@ -34,23 +34,23 @@ function updateTxtModal(text) {
 }
 
 function setMeme() {
-    gMeme.selectedLineIdx ++
+    gMeme.selectedLineIdx++
     createLine();
 }
 
 function createLine() {
     var pos;
-    if(gMeme.selectedLineIdx === 0) {
-    pos = {x:10,y:50}
-    } else if(gMeme.selectedLineIdx === 1){
-        pos = {x:10,y:400}
-    } else pos = {x:10,y:200}
+    if (gMeme.selectedLineIdx === 0) {
+        pos = { x: 10, y: 50 }
+    } else if (gMeme.selectedLineIdx === 1) {
+        pos = { x: 10, y: 400 }
+    } else pos = { x: 10, y: 200 }
     var line = {
         txt: '',
-            size: 20,
-            align: 'left',
-            color: 'red',
-            pos: pos
+        size: 20,
+        align: 'left',
+        color: 'red',
+        pos: pos
     }
     gMeme.lines.push(line)
 }
@@ -61,9 +61,9 @@ function resetModal() {
     createLine();
 }
 
-function setMemePos(x, y){
-    gMeme.lines[gMeme.selectedLineIdx].pos.x += x 
-    gMeme.lines[gMeme.selectedLineIdx].pos.y += y 
+function setMemePos(x, y) {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += x
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += y
 }
 
 function getimgs() {
@@ -75,10 +75,16 @@ function setChoosimg(id) {
 }
 
 function isWordClicked(clickedPos) {
+    var memeIdx = gMeme.lines.findIndex(meme => {
+       return Math.abs(meme.pos.y - clickedPos.y) <= meme.size
+    })
+    console.log(memeIdx);
     const { pos } = gMeme.lines[gMeme.selectedLineIdx]
-    var distance = pos.y - clickedPos.y
-    if(distance < 0){
-        distance *=  (-1)
-    } 
-    return distance <= gMeme.lines[gMeme.selectedLineIdx].size
+    var distanceY = pos.y - clickedPos.y
+    var distanceX = pos.x - clickedPos.x
+    // if(distance < 0){
+    //     distance *=  (-1)
+    // } 
+    var txt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt);
+    return (Math.abs(distanceY) <= gMeme.lines[gMeme.selectedLineIdx].size && Math.abs(distanceX) <= txt.width)
 }
