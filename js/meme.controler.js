@@ -14,14 +14,14 @@ var gWordIsDrag;
 //     // gElCanvas = document.getElementById('my-canvas')
 //     // gCtx = gElCanvas.getContext('2d')
 //     // drawImgFromlocal();
-// }
-
+// }                                         <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
+// {/* <textarea name="mems-txt" oninput="writeLine(this)" onfocusout="this.value='' cols="30" rows="10"></textarea> */}    removeImput(this)
 function renderCan() {
     var el = document.querySelector('.main');
-    
+
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
     class="canvas-container" width="500" height="450"></canvas><div class="controler">
-    <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout=" removeImput(this)">
+    <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
     <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png"></div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
@@ -43,15 +43,24 @@ function drawImgFromlocal() {
 
 function renderImg() {
     var meme = getMeme()
-    var currMeme = meme.lines[0]
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
-    drawText(currMeme.txt,currMeme.pos.x ,currMeme.pos.y)
+    meme.lines.forEach(line => {
+        // var currMeme = meme.lines[meme.selectedLineIdx]
+        drawText(line.txt, line.pos.x, line.pos.y)
+    });
+        
+
     // console.log(currMeme.txt);
     // console.log(currMeme.pos.y);
 }
 
+function onGalleryPage(){
+    resetModal()
+    init()
+}
 
-function drawText(text = 'meme',x, y) {
+function drawText(text = 'meme', x, y) {
+
     // var meme = getMeme()
     // var y = meme.lines[0].pos.y
     var txt = gCtx.measureText(text);
@@ -73,7 +82,9 @@ function removeImput(el) {
     el.value = '';
 }
 
-
+function onAddLine() {
+    setMeme();
+}
 
 
 
@@ -101,10 +112,9 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    console.log(isWordClicked(pos));
+    // console.log(isWordClicked(pos));
     if (!isWordClicked(pos)) return
     gWordIsDrag = true
-    console.log(gWordIsDrag)
     // setCircleDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
@@ -118,7 +128,7 @@ function onMove(ev) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
-        setMemePos(dx,dy)
+        setMemePos(dx, dy)
         // drawText(meme.lines[0].txt , dy)
         gStartPos = pos
         renderImg()
@@ -126,7 +136,7 @@ function onMove(ev) {
 }
 
 function onUp() {
-    console.log('onUp()');
+    // console.log('onUp()');
     gWordIsDrag = false
     // setCircleDrag(false)
     document.body.style.cursor = 'grab'
