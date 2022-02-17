@@ -15,7 +15,7 @@ var gMeme = {
             size: 20,
             align: 'left',
             color: 'red',
-            pos:{}
+            pos: { x: 10, y: 50 }
         }
     ]
 }
@@ -33,10 +33,21 @@ function updateTxtModal(text) {
     gMeme.lines[0].txt = text;
 }
 
-function getimgs(){
+function setMemePos(x, y){
+    gMeme.lines[0].pos.x += x 
+    gMeme.lines[0].pos.y += y 
+}
+
+function getimgs() {
     return gImgs;
 }
 
 function setChoosimg(id) {
     gMeme.selectedImgId = id
+}
+
+function isWordClicked(clickedPos) {
+    const { pos } = gMeme.lines[0]
+    const distance = pos.y - clickedPos.y
+    return distance <= gMeme.lines[0].size
 }
