@@ -22,7 +22,14 @@ function renderCan() {
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
     class="canvas-container" width="500" height="450"></canvas><div class="controler">
     <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
-    <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png"></div></div>
+    <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png">
+    <img class="trash" onclick="onRemoveLine()" src="ICONS/trash.png">
+    <img class="increase" onclick="onChangeTxtSiz(true)" src="ICONS/increase-font.png" >
+    <img class="decrease" onclick="onChangeTxtSiz(false)" src="ICONS/decrease-font .png">
+    <img class="align-left" onclick="onAlignTxt('left')" src="ICONS/align-to-left.png">
+    <img class="align-center" onclick="onAlignTxt('center')" src="ICONS/center-text-alignment.png">
+    <img class="align-right" onclick="onAlignTxt('right')" src="ICONS/align-to-right.png">
+    </div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -45,13 +52,8 @@ function renderImg() {
     var meme = getMeme()
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
     meme.lines.forEach(line => {
-        // var currMeme = meme.lines[meme.selectedLineIdx]
-        drawText(line.txt, line.pos.x, line.pos.y)
+        drawText(line.txt, line.pos.x, line.pos.y, line.size)
     });
-        
-
-    // console.log(currMeme.txt);
-    // console.log(currMeme.pos.y);
 }
 
 function onGalleryPage(){
@@ -59,15 +61,12 @@ function onGalleryPage(){
     init()
 }
 
-function drawText(text = 'meme', x, y) {
-
-    // var meme = getMeme()
-    // var y = meme.lines[0].pos.y
-    var txt = gCtx.measureText(text);
+function drawText(text , x, y,size) {
+    // var txt = gCtx.measureText(text);
     gCtx.lineWidth = 0.5;
     gCtx.strokeStyle = 'white';
     gCtx.fillStyle = 'black';
-    gCtx.font = '35px Impact';
+    gCtx.font = `${size}px Impact`;
     // var x = ((gElCanvas.width - txt.width) / 2)
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
@@ -78,15 +77,28 @@ function writeLine(el) {
     renderImg()
 }
 
-function removeImput(el) {
-    el.value = '';
+function onRemoveLine() {
+    removeLine()
+    renderImg()
+}
+
+function onChangeTxtSiz(bolli) {
+    ChangeTxtSiz(bolli)
+    renderImg();
 }
 
 function onAddLine() {
     setMeme();
 }
 
-
+function onAlignTxt(side) {
+    var meme = getMeme()
+    var txt = gCtx.measureText(meme.lines[meme.selectedLineIdx].txt);
+    var centerX = ((gElCanvas.width - txt.width) / 2);
+    var rightX = (gElCanvas.width - txt.width);
+    setAligntxt(side,centerX , rightX);
+    renderImg();
+}
 
 
 function addListeners() {
@@ -136,9 +148,7 @@ function onMove(ev) {
 }
 
 function onUp() {
-    // console.log('onUp()');
     gWordIsDrag = false
-    // setCircleDrag(false)
     document.body.style.cursor = 'grab'
 }
 

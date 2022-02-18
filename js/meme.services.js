@@ -9,10 +9,11 @@ var gImgs = [
 var gMeme = {
     selectedImgId: null,
     selectedLineIdx: 0,
+    lineNum: 0,
     lines: [
         {
             txt: 'meme',
-            size: 20,
+            size: 35,
             align: 'left',
             color: 'red',
             pos: { x: 10, y: 50 }
@@ -34,20 +35,29 @@ function updateTxtModal(text) {
 }
 
 function setMeme() {
-    gMeme.selectedLineIdx++
+    gMeme.lineNum++
+    gMeme.selectedLineIdx = gMeme.lineNum
     createLine();
+}
+
+function ChangeTxtSiz(bolli) {
+    if (bolli) {
+        gMeme.lines[gMeme.selectedLineIdx].size += 2
+    } else {
+        gMeme.lines[gMeme.selectedLineIdx].size -= 2
+    }
 }
 
 function createLine() {
     var pos;
-    if (gMeme.selectedLineIdx === 0) {
+    if (gMeme.lineNum === 0) {
         pos = { x: 10, y: 50 }
-    } else if (gMeme.selectedLineIdx === 1) {
+    } else if (gMeme.lineNum === 1) {
         pos = { x: 10, y: 400 }
     } else pos = { x: 10, y: 200 }
     var line = {
         txt: '',
-        size: 20,
+        size: 35,
         align: 'left',
         color: 'red',
         pos: pos
@@ -55,7 +65,18 @@ function createLine() {
     gMeme.lines.push(line)
 }
 
+function removeLine() {
+    gMeme.lineNum--
+    if (gMeme.lineNum < 0) {
+        gMeme.lineNum = 0
+        return;
+    }
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    gMeme.selectedLineIdx = 0;
+}
+
 function resetModal() {
+    gMeme.lineNum = 0
     gMeme.selectedLineIdx = 0;
     gMeme.lines.splice(0);
     createLine();
@@ -74,17 +95,34 @@ function setChoosimg(id) {
     gMeme.selectedImgId = id
 }
 
+function setAligntxt(side, centerX, rightX) {
+    switch (side) {
+        case 'left':
+            gMeme.lines[gMeme.selectedLineIdx].pos.x = 5
+            break;
+        case 'center':
+            gMeme.lines[gMeme.selectedLineIdx].pos.x = centerX
+            break;
+        case 'right':
+            gMeme.lines[gMeme.selectedLineIdx].pos.x = rightX
+            break;
+    }
+}
+
 function isWordClicked(clickedPos) {
-    var memeIdx = gMeme.lines.findIndex(meme => {
-       return Math.abs(meme.pos.y - clickedPos.y) <= meme.size
-    })
-    console.log(memeIdx);
-    const { pos } = gMeme.lines[gMeme.selectedLineIdx]
-    var distanceY = pos.y - clickedPos.y
-    var distanceX = pos.x - clickedPos.x
-    // if(distance < 0){
-    //     distance *=  (-1)
-    // } 
     var txt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt);
-    return (Math.abs(distanceY) <= gMeme.lines[gMeme.selectedLineIdx].size && Math.abs(distanceX) <= txt.width)
+    var memeIdx = gMeme.lines.findIndex(meme => {
+        return (Math.abs(meme.pos.y - clickedPos.y) <= meme.size && Math.abs(meme.pos.x - clickedPos.x) <= txt.width)
+    })
+    if (memeIdx < 0) return
+    gMeme.selectedLineIdx = memeIdx
+    return true;
+    // const { pos } = gMeme.lines[gMeme.selectedLineIdx]
+    // var distanceY = pos.y - clickedPos.y
+    // var distanceX = pos.x - clickedPos.x
+    // // if(distance < 0){
+    // //     distance *=  (-1)
+    // // } 
+    // var txt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt);
+    // return (Math.abs(distanceY) <= gMeme.lines[gMeme.selectedLineIdx].size && Math.abs(distanceX) <= txt.width)
 }

@@ -8,12 +8,12 @@
     width: 350px;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
     grid-template-rows: 1fr 1fr 1fr 1fr 2fr 1fr;
-    gap: 15px;
+    gap: 20px;
 
     grid-template-areas: 
     " .      input      input     input   . "
-    " .          .     add-btn   .    . "
-    " .  .  .       .  . "
+    " .          .     add-btn    trash    . "
+    "increase  decrease  align-l  align-c  align-r"
     " .   .   .  .        . " 
     " .      .      .     .    . "
     " .           .           .       .    . ";
@@ -29,3 +29,32 @@ input {
     background-color: rgb(255, 167, 52);
 }
 
+.trash {
+    grid-area: trash;
+    background-color: rgb(255, 167, 52);
+}
+
+.increase {
+    grid-area: increase;
+    background-color:rgb(255, 167, 52) ;
+}
+
+.decrease {
+    grid-area: decrease;
+    background-color: rgb(255, 167, 52);
+}
+
+.align-left {
+    grid-area: align-l;
+    background-color: rgb(255, 167, 52);
+}
+
+.align-center {
+    grid-area: align-c;
+    background-color: rgb(255, 167, 52);
+}
+
+.align-right {
+    grid-area: align-r;
+    background-color: rgb(255, 167, 52);
+}
