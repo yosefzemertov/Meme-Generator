@@ -16,7 +16,8 @@ var gMeme = {
             size: 35,
             align: 'left',
             color: 'red',
-            pos: { x: 10, y: 50 }
+            pos: { x: 10, y: 50 },
+            font: 'Impact'
         }
     ]
 }
@@ -56,6 +57,7 @@ function createLine() {
         pos = { x: 10, y: 400 }
     } else pos = { x: 10, y: 200 }
     var line = {
+        font:'Impact',
         txt: '',
         size: 35,
         align: 'left',
@@ -107,6 +109,10 @@ function setAligntxt(side, centerX, rightX) {
             gMeme.lines[gMeme.selectedLineIdx].pos.x = rightX
             break;
     }
+}
+
+function setFontLine(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font;
 }
 
 function isWordClicked(clickedPos) {

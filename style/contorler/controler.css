@@ -14,7 +14,7 @@
     " .      input      input     input   . "
     " .          .     add-btn    trash    . "
     "increase  decrease  align-l  align-c  align-r"
-    " .   .   .  .        . " 
+    "font    font   font   .     . " 
     " .      .      .     .    . "
     " .           .           .       .    . ";
 }
@@ -57,4 +57,9 @@ input {
 .align-right {
     grid-area: align-r;
     background-color: rgb(255, 167, 52);
+}
+
+#font {
+    grid-area: font;
+    border-color: rgb(255, 167, 52);
 }

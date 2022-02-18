@@ -29,6 +29,11 @@ function renderCan() {
     <img class="align-left" onclick="onAlignTxt('left')" src="ICONS/align-to-left.png">
     <img class="align-center" onclick="onAlignTxt('center')" src="ICONS/center-text-alignment.png">
     <img class="align-right" onclick="onAlignTxt('right')" src="ICONS/align-to-right.png">
+    <select onchange="onSetFont(this.value)" id="font">
+        <option value="Impact">Impact</option>
+        <option value="Franklin Gothic Medium">Franklin</option>
+        <option value="fantasy">fantasy</option>
+    </select>
     </div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
@@ -52,21 +57,21 @@ function renderImg() {
     var meme = getMeme()
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
     meme.lines.forEach(line => {
-        drawText(line.txt, line.pos.x, line.pos.y, line.size)
+        drawText(line.txt, line.pos.x, line.pos.y, line.size,line.font)
     });
 }
 
-function onGalleryPage(){
+function onGalleryPage() {
     resetModal()
     init()
 }
 
-function drawText(text , x, y,size) {
+function drawText(text, x, y, size,font) {
     // var txt = gCtx.measureText(text);
     gCtx.lineWidth = 0.5;
     gCtx.strokeStyle = 'white';
     gCtx.fillStyle = 'black';
-    gCtx.font = `${size}px Impact`;
+    gCtx.font = `${size}px ${font}`;
     // var x = ((gElCanvas.width - txt.width) / 2)
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
@@ -96,7 +101,12 @@ function onAlignTxt(side) {
     var txt = gCtx.measureText(meme.lines[meme.selectedLineIdx].txt);
     var centerX = ((gElCanvas.width - txt.width) / 2);
     var rightX = (gElCanvas.width - txt.width);
-    setAligntxt(side,centerX , rightX);
+    setAligntxt(side, centerX, rightX);
+    renderImg();
+}
+
+function onSetFont(font) {
+    setFontLine(font);
     renderImg();
 }
 
