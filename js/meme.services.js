@@ -15,9 +15,10 @@ var gMeme = {
             txt: 'meme',
             size: 35,
             align: 'left',
-            color: 'red',
+            color: 'black',
             pos: { x: 10, y: 50 },
-            font: 'Impact'
+            font: 'Impact',
+            strokeColor: 'white'
         }
     ]
 }
@@ -61,8 +62,9 @@ function createLine() {
         txt: '',
         size: 35,
         align: 'left',
-        color: 'red',
-        pos: pos
+        color: 'black',
+        pos: pos,
+        strokeColor: 'white'
     }
     gMeme.lines.push(line)
 }
@@ -93,6 +95,15 @@ function getimgs() {
     return gImgs;
 }
 
+function chengeStrokeColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].strokeColor = color;
+}
+
+function chengeFontColor(color) {
+console.log(color);
+    gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
+
 function setChoosimg(id) {
     gMeme.selectedImgId = id
 }
@@ -113,7 +124,7 @@ function setAligntxt(side, centerX, rightX) {
 
 function ChengSelectedLineIdx() {
     gMeme.selectedLineIdx++
-    if(gMeme.selectedLineIdx > gMeme.lineNum) gMeme.selectedLineIdx = 0;
+    if (gMeme.selectedLineIdx > gMeme.lineNum) gMeme.selectedLineIdx = 0;
 }
 
 function setFontLine(font) {
@@ -126,13 +137,14 @@ function isWordClicked(clickedPos) {
         var txt = gCtx.measureText(meme.txt);
         return (Math.abs(meme.pos.y - clickedPos.y) <= meme.size && Math.abs(meme.pos.x - clickedPos.x) <= txt.width)
     })
+    
     if (memeIdx < 0) {
         gMeme.selectedLineIdx = null
         return false;
-    } 
+    }
     gMeme.selectedLineIdx = memeIdx
     return true;
-    
+
     // const { pos } = gMeme.lines[gMeme.selectedLineIdx]
     // var distanceY = pos.y - clickedPos.y
     // var distanceX = pos.x - clickedPos.x

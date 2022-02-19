@@ -21,8 +21,8 @@ function renderCan() {
     var el = document.querySelector('.main');
 
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
-    class="canvas-container" width="500" height="450"></canvas><div class="controler">
-    <input type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
+    class="canvas-container" width="500" height="500"></canvas><div class="controler">
+    <input class="input" type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
     <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png">
     <img class="trash" onclick="onRemoveLine()" src="ICONS/trash.png">
     <img class="increase" onclick="onChangeTxtSiz(true)" src="ICONS/increase-font.png" >
@@ -36,6 +36,14 @@ function renderCan() {
         <option value="Franklin Gothic Medium">Franklin</option>
         <option value="fantasy">fantasy</option>
     </select>
+    <button class="stroke-color">
+          <input class="color" type="color" onchange="onchengeStrokeColor(this.value)">
+          <img  src="ICONS/text-stroke.png">
+      </button>
+    <button class="font-color">
+          <input class="color" type="color" onchange="onchengeFontColor(this.value)">
+          <img  src="ICONS/paint-color.png">
+      </button>
     </div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
@@ -59,17 +67,17 @@ function renderImg() {
     var meme = getMeme()
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
     meme.lines.forEach(line => {
-        drawText(line.txt, line.pos.x, line.pos.y, line.size, line.font)
+        drawText(line.txt, line.pos.x, line.pos.y, line.size, line.font,line.strokeColor,line.color)
     });
     if (isPhaseDesign) {
-        if(meme.selectedLineIdx === null) return;
+        if (meme.selectedLineIdx === null) return;
         var chooseLine = meme.lines[meme.selectedLineIdx];
         var txt = gCtx.measureText(chooseLine.txt);
-        var startX = (chooseLine.pos.x) - 5 ;
+        var startX = (chooseLine.pos.x) - 5;
         var x = (txt.width) + 10;
-        var startY = (chooseLine.pos.y) + 10 ;
+        var startY = (chooseLine.pos.y) + 10;
         var y = -(chooseLine.size) - 10
-        drawRect(startX,startY,x,y)
+        drawRect(startX, startY, x, y)
     }
 }
 
@@ -78,11 +86,11 @@ function onGalleryPage() {
     init()
 }
 
-function drawText(text, x, y, size, font) {
+function drawText(text, x, y, size, font ,strokeColor,color) {
     // var txt = gCtx.measureText(text);
     gCtx.lineWidth = 0.9;
-    gCtx.strokeStyle = 'white';
-    gCtx.fillStyle = 'black';
+    gCtx.strokeStyle = strokeColor;
+    gCtx.fillStyle = color;
     gCtx.font = `${size}px ${font}`;
     // var x = ((gElCanvas.width - txt.width) / 2)
     gCtx.fillText(text, x, y);
@@ -108,7 +116,7 @@ function onAddLine() {
     setMeme();
 }
 
-function drawRect(startX,startY,x,y) {
+function drawRect(startX, startY, x, y) {
     gCtx.beginPath();
     gCtx.rect(startX, startY, x, y);
     gCtx.lineWidth = 3;
@@ -132,6 +140,16 @@ function onSetFont(font) {
 
 function onChengSelectedLineIdx() {
     ChengSelectedLineIdx();
+    renderImg();
+}
+
+function onchengeStrokeColor(value) {
+    chengeStrokeColor(value);
+    renderImg();
+}
+
+function onchengeFontColor(value) {
+    chengeFontColor(value);
     renderImg();
 }
 
@@ -162,7 +180,7 @@ function onDown(ev) {
     if (!isWordClicked(pos)) {
         renderImg()
         return
-    } 
+    }
     gWordIsDrag = true
     // setCircleDrag(true)
     gStartPos = pos

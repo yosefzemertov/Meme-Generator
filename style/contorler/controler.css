@@ -6,6 +6,7 @@
     display: grid;
     background-color: rgb(19, 19, 19);
     width: 350px;
+    max-height: 500px;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
     grid-template-rows: 1fr 1fr 1fr 1fr 2fr 1fr;
     gap: 20px;
@@ -14,18 +15,28 @@
     " .      input      input     input   . "
     " .      up-down     add-btn    trash    . "
     "increase  decrease  align-l  align-c  align-r"
-    "font    font   font   .     . " 
+    "font    font   font   stroke-color     font-color " 
     " .      .      .     .    . "
     " .           .           .       .    . ";
 }
 
+.color {
+    height: 15px;
+    width: 40px;
+}
 
-input {
+.input {
     grid-area: input;
 }
 
 .up-down {
     grid-area: up-down;
+    background-color: rgb(255, 167, 52);
+    
+}
+
+.font-color {
+    grid-area: font-color;
     background-color: rgb(255, 167, 52);
 }
 
@@ -67,4 +78,9 @@ input {
 #font {
     grid-area: font;
     border-color: rgb(255, 167, 52);
+}
+
+.stroke-color {
+    grid-area: stroke-color;
+    background-color: rgb(255, 167, 52);
 }
