@@ -2,12 +2,16 @@
     gap: 15px; 
 }
 
+
+
 .controler {
     display: grid;
-    background-color: rgb(19, 19, 19);
-    width: 350px;
-    max-height: 500px;
+    /* width: 350px; */
+    width: 100vw;
+    max-height: 25vh;
+    /* max-height: 500px; */
     grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
+    /* grid-template-columns:50px 50px 50px 50px 50px ; */
     grid-template-rows: 1fr 1fr 1fr 1fr 2fr 1fr;
     gap: 20px;
 
@@ -16,7 +20,7 @@
     " .      up-down     add-btn    trash    . "
     "increase  decrease  align-l  align-c  align-r"
     "font    font   font   stroke-color     font-color " 
-    " .      .      .     .    . "
+    " .      downloud      downloud     share    share "
     " .       downloud   downloud   share  share";
 }
 

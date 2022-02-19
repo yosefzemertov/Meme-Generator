@@ -21,7 +21,7 @@ function renderCan() {
     var el = document.querySelector('.main');
 
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
-    class="canvas-container" width="500" height="500"></canvas><div class="controler">
+    class="canvas-container" width="400" height="400"></canvas><div class="controler">
     <input class="input" type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
     <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png">
     <img class="trash" onclick="onRemoveLine()" src="ICONS/trash.png">
