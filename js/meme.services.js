@@ -3,7 +3,22 @@
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keyWord: ['funny', 'face'] },
     { id: 2, url: 'img/2.jpg', keyWord: ['animals', 'dog'] },
-    { id: 3, url: 'img/3.jpg', keyWord: ['animals', 'dog', 'baby'] }
+    { id: 3, url: 'img/3.jpg', keyWord: ['animals', 'dog', 'baby'] },
+    { id: 4, url: 'img/4.jpg', keyWord: ['animals', 'cat'] },
+    { id: 5, url: 'img/5.jpg', keyWord: ['baby', 'funny'] },
+    { id: 6, url: 'img/6.jpg', keyWord: ['face', 'funny'] },
+    { id: 7, url: 'img/7.jpg', keyWord: ['baby', 'funny'] },
+    { id: 8, url: 'img/8.jpg', keyWord: ['face', 'funny', 'movie'] },
+    { id: 9, url: 'img/9.jpg', keyWord: ['face', 'funny', 'baby'] },
+    { id: 10, url: 'img/10.jpg', keyWord: ['face', 'politic', 'funny'] },
+    { id: 11, url: 'img/11.jpg', keyWord: ['sport'] },
+    { id: 13, url: 'img/13.jpg', keyWord: ['face', 'movie'] },
+    { id: 14, url: 'img/14.jpg', keyWord: ['face', 'movie'] },
+    { id: 15, url: 'img/15.jpg', keyWord: ['face', 'movie'] },
+    { id: 16, url: 'img/16.jpg', keyWord: ['face', 'movie', 'funny'] },
+    { id: 17, url: 'img/17.jpg', keyWord: ['face', 'politic'] },
+    { id: 18, url: 'img/18.jpg', keyWord: ['funny', 'cartoon', 'movie'] },
+
 ];
 
 var gMeme = {
@@ -100,7 +115,7 @@ function chengeStrokeColor(color) {
 }
 
 function chengeFontColor(color) {
-console.log(color);
+    console.log(color);
     gMeme.lines[gMeme.selectedLineIdx].color = color;
 }
 
@@ -137,7 +152,7 @@ function isWordClicked(clickedPos) {
         var txt = gCtx.measureText(meme.txt);
         return (Math.abs(meme.pos.y - clickedPos.y) <= meme.size && Math.abs(meme.pos.x - clickedPos.x) <= txt.width)
     })
-    
+
     if (memeIdx < 0) {
         gMeme.selectedLineIdx = null
         return false;
