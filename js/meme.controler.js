@@ -7,6 +7,7 @@ var gImg
 var gStartPos
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gWordIsDrag;
+var isPhaseDesign = true;
 
 
 // function init() {
@@ -57,8 +58,18 @@ function renderImg() {
     var meme = getMeme()
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
     meme.lines.forEach(line => {
-        drawText(line.txt, line.pos.x, line.pos.y, line.size,line.font)
+        drawText(line.txt, line.pos.x, line.pos.y, line.size, line.font)
     });
+    if (isPhaseDesign) {
+        if(meme.selectedLineIdx === null) return;
+        var chooseLine = meme.lines[meme.selectedLineIdx];
+        var txt = gCtx.measureText(chooseLine.txt);
+        var startX = (chooseLine.pos.x) - 5 ;
+        var x = (txt.width) + 10;
+        var startY = (chooseLine.pos.y) + 5 ;
+        var y = -(chooseLine.size) - 5
+        drawRect(startX,startY,x,y)
+    }
 }
 
 function onGalleryPage() {
@@ -66,7 +77,7 @@ function onGalleryPage() {
     init()
 }
 
-function drawText(text, x, y, size,font) {
+function drawText(text, x, y, size, font) {
     // var txt = gCtx.measureText(text);
     gCtx.lineWidth = 0.5;
     gCtx.strokeStyle = 'white';
@@ -94,6 +105,13 @@ function onChangeTxtSiz(bolli) {
 
 function onAddLine() {
     setMeme();
+}
+
+function drawRect(startX,startY,x,y) {
+    gCtx.beginPath();
+    gCtx.rect(startX, startY, x, y);
+    gCtx.strokeStyle = 'black';
+    gCtx.stroke();
 }
 
 function onAlignTxt(side) {
@@ -135,7 +153,10 @@ function addTouchListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev)
     // console.log(isWordClicked(pos));
-    if (!isWordClicked(pos)) return
+    if (!isWordClicked(pos)) {
+        renderImg()
+        return
+    } 
     gWordIsDrag = true
     // setCircleDrag(true)
     gStartPos = pos

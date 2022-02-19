@@ -57,7 +57,7 @@ function createLine() {
         pos = { x: 10, y: 400 }
     } else pos = { x: 10, y: 200 }
     var line = {
-        font:'Impact',
+        font: 'Impact',
         txt: '',
         size: 35,
         align: 'left',
@@ -116,13 +116,18 @@ function setFontLine(font) {
 }
 
 function isWordClicked(clickedPos) {
-    var txt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt);
+    // var txt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt);
     var memeIdx = gMeme.lines.findIndex(meme => {
+        var txt = gCtx.measureText(meme.txt);
         return (Math.abs(meme.pos.y - clickedPos.y) <= meme.size && Math.abs(meme.pos.x - clickedPos.x) <= txt.width)
     })
-    if (memeIdx < 0) return
+    if (memeIdx < 0) {
+        gMeme.selectedLineIdx = null
+        return false;
+    } 
     gMeme.selectedLineIdx = memeIdx
     return true;
+    
     // const { pos } = gMeme.lines[gMeme.selectedLineIdx]
     // var distanceY = pos.y - clickedPos.y
     // var distanceX = pos.x - clickedPos.x
