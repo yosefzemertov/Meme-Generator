@@ -44,6 +44,10 @@ function renderCan() {
           <input class="color" type="color" onchange="onchengeFontColor(this.value)">
           <img  src="ICONS/paint-color.png">
       </button>
+      <button class="downloud-btn">
+      <a href="#" class="downloud" onclick="onDownloadmeme(this)">Download meme</a>
+  </button>
+      <button onclick="uploadImg(this,event)" class="share-btn">share</button>
     </div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
@@ -67,7 +71,7 @@ function renderImg() {
     var meme = getMeme()
     gCtx.drawImage(gImg, 0, 0, gElCanvas.width, gElCanvas.height);
     meme.lines.forEach(line => {
-        drawText(line.txt, line.pos.x, line.pos.y, line.size, line.font,line.strokeColor,line.color)
+        drawText(line.txt, line.pos.x, line.pos.y, line.size, line.font, line.strokeColor, line.color)
     });
     if (isPhaseDesign) {
         if (meme.selectedLineIdx === null) return;
@@ -86,7 +90,7 @@ function onGalleryPage() {
     init()
 }
 
-function drawText(text, x, y, size, font ,strokeColor,color) {
+function drawText(text, x, y, size, font, strokeColor, color) {
     // var txt = gCtx.measureText(text);
     gCtx.lineWidth = 0.9;
     gCtx.strokeStyle = strokeColor;
@@ -151,6 +155,14 @@ function onchengeStrokeColor(value) {
 function onchengeFontColor(value) {
     chengeFontColor(value);
     renderImg();
+}
+
+function onDownloadmeme(elLink) {
+    isPhaseDesign = false;
+    renderImg();
+    const data = gElCanvas.toDataURL();
+    elLink.href = data;
+    elLink.download = 'meme';
 }
 
 function addListeners() {
@@ -221,4 +233,38 @@ function getEvPos(ev) {
         }
     }
     return pos
+}
+
+function uploadImg() {
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        console.log(encodedUploadedImgUrl);
+
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`)
+        
+    }
+    
+    doUploadImg(imgDataUrl, onSuccess);
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+
+    const formData = new FormData();
+    formData.append('img', imgDataUrl)
+
+    fetch('//ca-upload.com/here/upload.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then((url)=>{
+        console.log('Got back live url:', url);
+        onSuccess(url)
+    })
+    .catch(err => {
+        console.error(err)
+    })
 }

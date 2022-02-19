@@ -17,7 +17,7 @@
     "increase  decrease  align-l  align-c  align-r"
     "font    font   font   stroke-color     font-color " 
     " .      .      .     .    . "
-    " .           .           .       .    . ";
+    " .       downloud   downloud   share  share";
 }
 
 .color {
@@ -82,5 +82,20 @@
 
 .stroke-color {
     grid-area: stroke-color;
+    background-color: rgb(255, 167, 52);
+}
+
+.downloud-btn {
+    grid-area: downloud;
+    background-color: rgb(255, 167, 52);
+}
+
+.downloud {
+    text-decoration: none;
+    color: black;
+}
+
+.share-btn {
+    grid-area: share;
     background-color: rgb(255, 167, 52);
 }
