@@ -12,7 +12,7 @@ function renderStraccher() {
 
 function renderGalery() {
     var imgs = getimgs()
-    var strHTML;
+    var strHTML = '';
     imgs.forEach(img => strHTML += `<img onClick="onImgSelect(this)" class="${img.id}" src="${img.url}">`)
     document.querySelector('.grid-container').innerHTML = strHTML;
 
