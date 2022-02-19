@@ -111,6 +111,11 @@ function setAligntxt(side, centerX, rightX) {
     }
 }
 
+function ChengSelectedLineIdx() {
+    gMeme.selectedLineIdx++
+    if(gMeme.selectedLineIdx > gMeme.lineNum) gMeme.selectedLineIdx = 0;
+}
+
 function setFontLine(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
 }

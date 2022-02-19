@@ -30,6 +30,7 @@ function renderCan() {
     <img class="align-left" onclick="onAlignTxt('left')" src="ICONS/align-to-left.png">
     <img class="align-center" onclick="onAlignTxt('center')" src="ICONS/center-text-alignment.png">
     <img class="align-right" onclick="onAlignTxt('right')" src="ICONS/align-to-right.png">
+    <img class="up-down" onclick="onChengSelectedLineIdx()" src="ICONS/up-down.png">
     <select onchange="onSetFont(this.value)" id="font">
         <option value="Impact">Impact</option>
         <option value="Franklin Gothic Medium">Franklin</option>
@@ -66,8 +67,8 @@ function renderImg() {
         var txt = gCtx.measureText(chooseLine.txt);
         var startX = (chooseLine.pos.x) - 5 ;
         var x = (txt.width) + 10;
-        var startY = (chooseLine.pos.y) + 5 ;
-        var y = -(chooseLine.size) - 5
+        var startY = (chooseLine.pos.y) + 10 ;
+        var y = -(chooseLine.size) - 10
         drawRect(startX,startY,x,y)
     }
 }
@@ -79,7 +80,7 @@ function onGalleryPage() {
 
 function drawText(text, x, y, size, font) {
     // var txt = gCtx.measureText(text);
-    gCtx.lineWidth = 0.5;
+    gCtx.lineWidth = 0.9;
     gCtx.strokeStyle = 'white';
     gCtx.fillStyle = 'black';
     gCtx.font = `${size}px ${font}`;
@@ -110,6 +111,7 @@ function onAddLine() {
 function drawRect(startX,startY,x,y) {
     gCtx.beginPath();
     gCtx.rect(startX, startY, x, y);
+    gCtx.lineWidth = 3;
     gCtx.strokeStyle = 'black';
     gCtx.stroke();
 }
@@ -128,6 +130,10 @@ function onSetFont(font) {
     renderImg();
 }
 
+function onChengSelectedLineIdx() {
+    ChengSelectedLineIdx();
+    renderImg();
+}
 
 function addListeners() {
     addMouseListeners()
