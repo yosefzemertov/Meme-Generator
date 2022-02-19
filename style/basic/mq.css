@@ -4,6 +4,10 @@
         margin: 0 auto; */
     }
 
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
     .flex {
 
         flex-direction: row;
