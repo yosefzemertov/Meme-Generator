@@ -1,5 +1,7 @@
 .main-container {
     gap: 15px; 
+    /* display: block; */
+    margin-bottom: 20px;
 }
 
 
@@ -8,11 +10,10 @@
     display: grid;
     /* width: 350px; */
     width: 100vw;
-    max-height: 25vh;
+    /* max-height: 25vh; */
     /* max-height: 500px; */
     grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
-    /* grid-template-columns:50px 50px 50px 50px 50px ; */
-    grid-template-rows: 1fr 1fr 1fr 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
 
     grid-template-areas: 
@@ -20,13 +21,15 @@
     " .      up-down     add-btn    trash    . "
     "increase  decrease  align-l  align-c  align-r"
     "font    font   font   stroke-color     font-color " 
-    " .      downloud      downloud     share    share "
-    " .       downloud   downloud   share  share";
+    " stiker      stiker      stiker      stiker      stiker"
+    "  downloud       downloud   downloud   share  share";
 }
 
 .color {
-    height: 15px;
+    /* height: 100%; */
+    position: absolute;
     width: 40px;
+    opacity: 0;
 }
 
 .input {
@@ -102,4 +105,34 @@
 .share-btn {
     grid-area: share;
     background-color: rgb(255, 167, 52);
+}
+
+.btn {
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.share-btn {
+    /* height: ; */
+    font-size: 150%;
+}
+
+.downloud-btn {
+    font-size: 150%;
+}
+
+.stiker-container {
+    grid-area: stiker;
+    display: flex;
+    background-color: rgb(255, 167, 52);
+    justify-content: space-between;
+}
+
+.stiker {
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 2rem;
+    background-color: gray;
+    cursor: pointer;
 }

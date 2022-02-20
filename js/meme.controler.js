@@ -23,32 +23,38 @@ function renderCan() {
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
     class="canvas-container" width="400" height="400"></canvas><div class="controler">
     <input class="input" type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
-    <img class="add-btn" onclick="onAddLine()" src="ICONS/add.png">
-    <img class="trash" onclick="onRemoveLine()" src="ICONS/trash.png">
-    <img class="increase" onclick="onChangeTxtSiz(true)" src="ICONS/increase-font.png" >
-    <img class="decrease" onclick="onChangeTxtSiz(false)" src="ICONS/decrease-font .png">
-    <img class="align-left" onclick="onAlignTxt('left')" src="ICONS/align-to-left.png">
-    <img class="align-center" onclick="onAlignTxt('center')" src="ICONS/center-text-alignment.png">
-    <img class="align-right" onclick="onAlignTxt('right')" src="ICONS/align-to-right.png">
-    <img class="up-down" onclick="onChengSelectedLineIdx()" src="ICONS/up-down.png">
+    <img class="add-btn btn" onclick="onAddLine()" src="ICONS/add.png">
+    <img class="trash btn" onclick="onRemoveLine()" src="ICONS/trash.png">
+    <img class="increase btn" onclick="onChangeTxtSiz(true)" src="ICONS/increase-font.png" >
+    <img class="decrease btn" onclick="onChangeTxtSiz(false)" src="ICONS/decrease-font .png">
+    <img class="align-left btn" onclick="onAlignTxt('left')" src="ICONS/align-to-left.png">
+    <img class="align-center btn" onclick="onAlignTxt('center')" src="ICONS/center-text-alignment.png">
+    <img class="align-right btn" onclick="onAlignTxt('right')" src="ICONS/align-to-right.png">
+    <img class="up-down btn" onclick="onChengSelectedLineIdx()" src="ICONS/up-down.png">
     <select onchange="onSetFont(this.value)" id="font">
         <option value="Impact">Impact</option>
         <option value="Franklin Gothic Medium">Franklin</option>
         <option value="fantasy">fantasy</option>
     </select>
-    <button class="stroke-color">
+    <button class="stroke-color btn">
           <input class="color" type="color" onchange="onchengeStrokeColor(this.value)">
           <img  src="ICONS/text-stroke.png">
       </button>
-    <button class="font-color">
+    <button class="font-color btn">
           <input class="color" type="color" onchange="onchengeFontColor(this.value)">
           <img  src="ICONS/paint-color.png">
       </button>
-      <button class="downloud-btn">
+      <button class="downloud-btn btn">
       <a href="#" class="downloud" onclick="onDownloadmeme(this)">Download meme</a>
   </button>
-      <button onclick="uploadImg(this,event)" class="share-btn">share</button>
-    </div></div>
+      <button onclick="uploadImg(this,event)" class="share-btn btn">share</button>
+      <div class="stiker-container">
+      <div class="stiker" onclick="onAddStiker(this.innerText)">😎</div>
+      <div class="stiker" onclick="onAddStiker(this.innerText)">🥰</div>
+      <div class="stiker" onclick="onAddStiker(this.innerText)">😪</div>
+      <div class="stiker" onclick="onAddStiker(this.innerText)">🤐</div>
+  </div>   
+      </div></div>
     `
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -102,8 +108,15 @@ function drawText(text, x, y, size, font, strokeColor, color) {
 }
 
 function writeLine(el) {
+
     updateTxtModal(el.value)
     renderImg()
+}
+
+function setInputLine(txt) {
+    var elInput = document.querySelector('.input')
+    // elInput.placeholder = txt
+    elInput.value = txt
 }
 
 function onRemoveLine() {
@@ -157,6 +170,11 @@ function onchengeFontColor(value) {
     renderImg();
 }
 
+function onAddStiker(sticker){
+    addSticker(sticker)
+    renderImg()
+}
+
 function onDownloadmeme(elLink) {
     isPhaseDesign = false;
     renderImg();
@@ -189,10 +207,12 @@ function addTouchListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev)
     // console.log(isWordClicked(pos));
+    
     if (!isWordClicked(pos)) {
         renderImg()
         return
     }
+    renderImg()
     gWordIsDrag = true
     // setCircleDrag(true)
     gStartPos = pos

@@ -65,20 +65,22 @@ function ChangeTxtSiz(bolli) {
     }
 }
 
-function createLine() {
-    var pos;
-    if (gMeme.lineNum === 0) {
-        pos = { x: 10, y: 50 }
-    } else if (gMeme.lineNum === 1) {
-        pos = { x: 10, y: 400 }
-    } else pos = { x: 10, y: 200 }
+function createLine(txt='',pos=null) {
+    if(!pos) {
+        var pos;
+        if (gMeme.lineNum === 0) {
+            pos = { x: 10, y: 50 }
+        } else if (gMeme.lineNum === 1) {
+            pos = { x: 10, y: 400 }
+        } else pos = { x: 10, y: 200 }
+    }
     var line = {
         font: 'Impact',
-        txt: '',
+        txt,
         size: 35,
         align: 'left',
         color: 'black',
-        pos: pos,
+        pos,
         strokeColor: 'white'
     }
     gMeme.lines.push(line)
@@ -88,11 +90,15 @@ function removeLine() {
     gMeme.lineNum--
     if (gMeme.lineNum < 0) {
         gMeme.lineNum = 0
-        return;
     }
-    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-    gMeme.selectedLineIdx = 0;
+    if (gMeme.lines.length == 1) {
+        gMeme.lines = [];
+    } else {
+        gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    }
+    gMeme.selectedLineIdx = null;
 }
+
 
 function resetModal() {
     gMeme.lineNum = 0
@@ -137,6 +143,11 @@ function setAligntxt(side, centerX, rightX) {
     }
 }
 
+function addSticker(sticker) {
+    var pos = {x:200,y:200}
+    createLine(sticker,pos)
+}
+
 function ChengSelectedLineIdx() {
     gMeme.selectedLineIdx++
     if (gMeme.selectedLineIdx > gMeme.lineNum) gMeme.selectedLineIdx = 0;
@@ -158,6 +169,7 @@ function isWordClicked(clickedPos) {
         return false;
     }
     gMeme.selectedLineIdx = memeIdx
+    setInputLine(gMeme.lines[gMeme.selectedLineIdx].txt)
     return true;
 
     // const { pos } = gMeme.lines[gMeme.selectedLineIdx]
