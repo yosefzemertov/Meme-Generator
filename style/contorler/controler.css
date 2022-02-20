@@ -110,6 +110,8 @@
 .btn {
     border-radius: 10px;
     cursor: pointer;
+    /* width: 100%; */
+    width: 85%;
 }
 
 .share-btn {

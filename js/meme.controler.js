@@ -22,7 +22,7 @@ function renderCan() {
 
     el.innerHTML = `<div class="main-container flex"><canvas id="my-canvas" 
     class="canvas-container" width="400" height="400"></canvas><div class="controler">
-    <input class="input" type="text" name="mems-txt" oninput="writeLine(this)" onfocusout="this.value=''">
+    <input class="input" type="text" name="mems-txt" oninput="writeLine(this)" ">
     <img class="add-btn btn" onclick="onAddLine()" src="ICONS/add.png">
     <img class="trash btn" onclick="onRemoveLine()" src="ICONS/trash.png">
     <img class="increase btn" onclick="onChangeTxtSiz(true)" src="ICONS/increase-font.png" >
@@ -115,6 +115,7 @@ function writeLine(el) {
 
 function setInputLine(txt) {
     var elInput = document.querySelector('.input')
+    console.log('txt',txt);
     // elInput.placeholder = txt
     elInput.value = txt
 }
@@ -130,6 +131,8 @@ function onChangeTxtSiz(bolli) {
 }
 
 function onAddLine() {
+    var elInput = document.querySelector('.input')
+    elInput.value = ''
     setMeme();
 }
 
@@ -194,6 +197,7 @@ function addListeners() {
 
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('dblclick', ondblclick)
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mouseup', onUp)
 }
@@ -203,6 +207,8 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchend', onUp)
 }
+
+
 
 function onDown(ev) {
     const pos = getEvPos(ev)
